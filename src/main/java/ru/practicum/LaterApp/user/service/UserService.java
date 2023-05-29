@@ -1,10 +1,10 @@
 package ru.practicum.LaterApp.user.service;
 
-import ru.practicum.LaterApp.user.model.User;
+import ru.practicum.LaterApp.user.dto.UserDto;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getAllUsers();
-    User saveUser(User user);
+    List<UserDto> getAllUsers();
+    UserDto saveUser(UserDto dto);
 }

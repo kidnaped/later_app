@@ -7,15 +7,17 @@ import ru.practicum.LaterApp.user.model.User;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserMapper {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
 
-    public static User fromDto(UserDto dto) {
+    public static User mapToUser(UserDto dto) {
         User user = new User();
         if (dto.getFirsName() != null) {
-            user.setFirsName(dto.getFirsName());
+            user.setFirstName(dto.getFirsName());
         }
         if (dto.getLastName() != null) {
             user.setLastName(dto.getLastName());
@@ -32,14 +34,20 @@ public class UserMapper {
         return user;
     }
 
-    public static UserDto fromUser(User user) {
+    public static UserDto mapToUserDto(User user) {
         return UserDto.builder()
                 .id(user.getId())
-                .firsName(user.getFirsName())
+                .firsName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
                 .state(user.getState())
                 .registrationDate(user.getRegistrationDate().format(formatter))
                 .build();
+    }
+
+    public static List<UserDto> mapToUserDto(Iterable<User> users) {
+        List<UserDto> dtos = new ArrayList<>();
+        users.forEach(user -> dtos.add(mapToUserDto(user)));
+        return dtos;
     }
 }
